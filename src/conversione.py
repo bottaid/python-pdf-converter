@@ -1,3 +1,4 @@
+import model
 from model import esercizio
 
 def main():
@@ -12,7 +13,7 @@ def main():
     '''
     oggettoEsercizio = Esercizio()
     
-    Esercizio().A()
+    oggettoEsercizio.A()
 
     print ("Hello world")
     
