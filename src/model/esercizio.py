@@ -1,11 +1,7 @@
+
 class Esercizio(object):
-    def __init__(self):
-        self.a = ''
+    def __init__(self, nome):
+        self.nome = nome
 
-    def A(self):
-        self.a = 'A'
-        print (self.a)
-
-    
-    def presentazione():
-        print ("sono un esercizio!")
+    def stampaNome(self):
+        print (self.nome)
