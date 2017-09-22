@@ -1,5 +1,5 @@
-import model
-from model import esercizio
+from src.model.esercizio.py import Esercizio
+from src.model.power.py import Power
 
 def main():
     '''
@@ -11,11 +11,13 @@ def main():
     controllaCsvEsistente()
     creaNuovoCsv()
     '''
-    oggettoEsercizio = Esercizio()
-    
-    oggettoEsercizio.A()
+    oggettoEsercizioGenerico = Esercizio("Esercizio generico")
+    oggettoEsercizioPower = Power("Esercizio power")
 
-    print ("Hello world")
+    oggettoEsercizioGenerico.stampaNome()
+    oggettoEsercizioPower.stampaNome()
+
+    print ("Hello world dal main")
     
 
 if __name__ == '__main__':
