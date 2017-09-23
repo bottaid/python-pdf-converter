@@ -1,5 +1,5 @@
-from src.model.esercizio.py import Esercizio
-from src.model.power.py import Power
+from src.model.esercizio import Esercizio
+from src.model.power import Power
 
 def main():
     '''
