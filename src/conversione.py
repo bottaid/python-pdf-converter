@@ -16,7 +16,7 @@ def main():
     oggettoEsercizioGenerico = Esercizio("Esercizio generico")
     oggettoEsercizioPower = Power("Esercizio power")
     oggettoEsercizioRom = Rom("Esercizio rom")
-    oggettoEsercizioSway = Sway("Esercizio sway")
+    oggettoEsercizioSwayUno = Sway("Esercizio sway")
 
 
     oggettoEsercizioGenerico.stampaNome()
