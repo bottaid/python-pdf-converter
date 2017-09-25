@@ -13,7 +13,7 @@ def main():
     controllaCsvEsistente()
     creaNuovoCsv()
     '''
-    path = '/example_docs'
+    path = '/docs'
 
     oggettoEsercizioGenerico = Esercizio("Esercizio generico")
     oggettoEsercizioPower = Power("Esercizio power")
