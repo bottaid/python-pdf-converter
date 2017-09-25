@@ -1,6 +1,6 @@
-from esercizio import Esercizio
+from src.model.esercizio import Esercizio
 
-class ROM(Esercizio):
+class Rom(Esercizio):
 
     def __init__(self, nome):
-        super(ROM, self).__init__(nome)
+        super(Rom, self).__init__(nome)

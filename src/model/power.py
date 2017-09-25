@@ -1,4 +1,4 @@
-from esercizio import Esercizio
+from src.model.esercizio import Esercizio
 
 class Power(Esercizio):
 
