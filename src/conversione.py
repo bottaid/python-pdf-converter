@@ -16,13 +16,13 @@ def main():
     oggettoEsercizioGenerico = Esercizio("Esercizio generico")
     oggettoEsercizioPower = Power("Esercizio power")
     oggettoEsercizioRom = Rom("Esercizio rom")
-    oggettoEsercizioSway = Sway("Esercizio sway")
+    oggettoEsercizioSwayDue = Sway("Esercizio sway")
 
 
     oggettoEsercizioGenerico.stampaNome()
     oggettoEsercizioPower.stampaNome()
     oggettoEsercizioRom.stampaNome()
-    oggettoEsercizioSway.stampaNome()
+    oggettoEsercizioSwayDue.stampaNome()
 
     print ("Hello world dal main")
     
