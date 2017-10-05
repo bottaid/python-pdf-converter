@@ -22,7 +22,7 @@ def main():
     oggettoEsercizioGenerico.stampaNome()
     oggettoEsercizioPower.stampaNome()
     oggettoEsercizioRom.stampaNome()
-    oggettoEsercizioSway.stampaNome()
+    oggettoEsercizioSwayUno.stampaNome()
 
     print ("Hello world dal main")
     
