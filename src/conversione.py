@@ -1,3 +1,5 @@
+import os
+
 from src.model.esercizio import Esercizio
 from src.model.power import Power
 from src.model.rom import Rom
@@ -13,16 +15,28 @@ def main():
     controllaCsvEsistente()
     creaNuovoCsv()
     '''
-    oggettoEsercizioGenerico = Esercizio("Esercizio generico")
-    oggettoEsercizioPower = Power("Esercizio power")
-    oggettoEsercizioRom = Rom("Esercizio rom")
-    oggettoEsercizioSwayUno = Sway("Esercizio sway")
+    path = 'docs'
 
+    directory = os.fsencode(path)
 
-    oggettoEsercizioGenerico.stampaNome()
-    oggettoEsercizioPower.stampaNome()
-    oggettoEsercizioRom.stampaNome()
-    oggettoEsercizioSwayUno.stampaNome()
+    for file in os.listdir(directory):
+        filename = os.fsdecode(file)
+        if (filename.startswith("sway_") & filename.endswith(".pdf")):
+            print ("File pronto per conversione: " + filename)
+            file = Sway(filename)
+        elif (filename.startswith("rom_") & filename.endswith(".pdf")):
+            print ("File pronto per conversione: " + filename)
+            file = Rom(filename)
+        elif (filename.startswith("power_") & filename.endswith(".pdf")):
+            print ("File pronto per conversione: " + filename)
+            file = Power(filename)
+        else:
+            print ("File non convertibile: " + filename)
+
+        if (isinstance(file, Esercizio)):
+            print("***Processando: ")
+            file.stampaNome()
+
 
     print ("Hello world dal main")
     
