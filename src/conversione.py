@@ -1,9 +1,12 @@
 import os
 
+from PyPDF2 import PdfFileReader
+
 from src.model.esercizio import Esercizio
 from src.model.power import Power
 from src.model.rom import Rom
 from src.model.sway import Sway
+
 
 def main():
     '''
@@ -20,22 +23,25 @@ def main():
     directory = os.fsencode(path)
 
     for file in os.listdir(directory):
+        #documentoMappa
         filename = os.fsdecode(file)
-        if (filename.startswith("sway_") & filename.endswith(".pdf")):
-            print ("File pronto per conversione: " + filename)
-            file = Sway(filename)
-        elif (filename.startswith("rom_") & filename.endswith(".pdf")):
-            print ("File pronto per conversione: " + filename)
-            file = Rom(filename)
-        elif (filename.startswith("power_") & filename.endswith(".pdf")):
-            print ("File pronto per conversione: " + filename)
-            file = Power(filename)
-        else:
-            print ("File non convertibile: " + filename)
+        with open(os.path.join(directory, file), 'rb') as pdfFileObject:
+            if (filename.startswith("sway_") & filename.endswith(".pdf")):
+                print ("File pronto per conversione: " + filename)
+                pdf = Sway(filename, pdfFileObject)
+                pdf.stampaPagine()
+            elif (filename.startswith("rom_") & filename.endswith(".pdf")):
+                print ("File pronto per conversione: " + filename)
+                pdf = Rom(filename, pdfFileObject)
+            elif (filename.startswith("power_") & filename.endswith(".pdf")):
+                print ("File pronto per conversione: " + filename)
+                pdf = Power(filename, pdfFileObject)
+            else:
+                print ("File non convertibile: " + filename)
 
-        if (isinstance(file, Esercizio)):
-            print("***Processando: ")
-            file.stampaNome()
+            if (isinstance(pdf, Esercizio)):
+                print("***Processando: ")
+                pdf.stampaNome()
 
 
     print ("Hello world dal main")
