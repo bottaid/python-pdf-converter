@@ -28,17 +28,15 @@ def main():
         with open(os.path.join(directory, file), 'rb') as pdfFileObject:
             if (filename.startswith("sway_") & filename.endswith(".pdf")):
                 print ("File pronto per conversione: " + filename)
-                pdf = Sway(filename, pdfFileObject)
+                pdf = Sway(filename, path)
                 #pdf.stampaPagine()
-                newpath = os.path.join(path, filename)
-                pdf.convertpdftotext(pdfFileObject)
                 #pdf.getPDFcontent()
             elif (filename.startswith("rom_") & filename.endswith(".pdf")):
                 print ("File pronto per conversione: " + filename)
-                pdf = Rom(filename, pdfFileObject)
+                pdf = Rom(filename, path)
             elif (filename.startswith("power_") & filename.endswith(".pdf")):
                 print ("File pronto per conversione: " + filename)
-                pdf = Power(filename, pdfFileObject)
+                pdf = Power(filename, path)
             else:
                 print ("File non convertibile: " + filename)
 

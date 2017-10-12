@@ -1,92 +1,48 @@
-import PyPDF2
-import textract as textract
-from PyPDF2 import PdfFileReader
-
-import pdfminer
-
-from pdfminer.pdfinterp import PDFResourceManager, process_pdf, PDFPageInterpreter
 from pdfminer.converter import TextConverter
-from pdfminer.pdfparser import PDFParser, PDFDocument
+from pdfminer.layout import LAParams
+from pdfminer.pdfdocument import PDFTextExtractionNotAllowed, PDFDocument
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
-from pdfminer.converter import PDFPageAggregator
-from pdfminer.layout import LAParams, LTTextBox, LTTextLine
-import io
+from pdfminer.pdfparser import PDFParser
+from pdfminer.pdfpage import PDFPage
+from io import StringIO
+
 
 class Esercizio(object):
 
-    def __init__(self, nome, pdfFileObject):
-        self.nome = nome
-        self.pdfReader = PdfFileReader(pdfFileObject)
+    def __init__(self, filename, path):
+        self.filename = filename
+        self.path = path + '/'
+
+        fp = open(self.path + self.filename, 'rb')
+        # Create a PDF parser object associated with the file object.
+        parser = PDFParser(fp)
+        print("Parser: ", parser)
+        # Create a PDF document object that stores the document structure.
+        # Supply the password for initialization.
+        self.document = PDFDocument(parser)
+        print ("Document: ", self.document)
+        self.retstr = StringIO()
+        # Check if the document allows text extraction. If not, abort.
+        if not self.document.is_extractable:
+            raise PDFTextExtractionNotAllowed
+        # Create a PDF resource manager object that stores shared resources.
+        rsrcmgr = PDFResourceManager()
+        # Create a PDF device object.
+        laparams = LAParams()
+        codec = 'utf-8'
+        device = TextConverter(rsrcmgr, self.retstr, codec=codec, laparams=laparams)
+        # Create a PDF interpreter object.
+        self.interpreter = PDFPageInterpreter(rsrcmgr, device)
+
 
     def stampaNome(self):
-        print (self.nome)
+        print (self.path + self.filename)
 
     def stampaPagine(self):
-         pageObject = self.pdfReader.getPage(i).extractText() + "\n"
-         print("Contenuto: ", pageObject)
+         for page in PDFPage.create_pages(self.document):
+                self.interpreter.process_page(page)
 
-    def convert_pdf(path):
+         text = self.retstr.getvalue()
+         print (text)
 
-        rsrcmgr = PDFResourceManager()
-        retstr = io.StringIO()
-        codec = 'utf-8'
-        laparams = LAParams()
-        device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
 
-        fp = open(path, 'rb')
-        process_pdf(rsrcmgr, device, fp)
-        fp.close()
-        device.close()
-
-        str = retstr.getvalue()
-        print (str)
-        retstr.close()
-        return str
-
-    def convert_pdf_to_txt(path):
-        rsrcmgr = PDFResourceManager()
-        retstr = io.StringIO()
-        codec = 'utf-8'
-        laparams = LAParams()
-        device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
-        fp = open(path, 'rb')
-        interpreter = PDFPageInterpreter(rsrcmgr, device)
-        password = ""
-        maxpages = 0
-        caching = True
-        pagenos = set()
-
-        for page in PDFPage.get_pages(fp, pagenos, maxpages=maxpages,
-                                      password=password,
-                                      caching=caching,
-                                      check_extractable=True):
-            interpreter.process_page(page)
-
-        text = retstr.getvalue()
-
-        fp.close()
-        device.close()
-        retstr.close()
-        return text
-
-    def convertpdftotext(path):
-        fp = open(path, 'rb')
-        parser = PDFParser(fp)
-        doc = PDFDocument()
-        parser.set_document(doc)
-        doc.set_parser(parser)
-        doc.initialize('')
-        rsrcmgr = PDFResourceManager()
-        laparams = LAParams()
-        laparams.char_margin = 1.0
-        laparams.word_margin = 1.0
-        device = PDFPageAggregator(rsrcmgr, laparams=laparams)
-        interpreter = PDFPageInterpreter(rsrcmgr, device)
-        extracted_text = ''
-
-        for page in doc.get_pages():
-            interpreter.process_page(page)
-            layout = device.get_result()
-            for lt_obj in layout:
-                if isinstance(lt_obj, LTTextBox) or isinstance(lt_obj, LTTextLine):
-                    extracted_text += lt_obj.get_text()
