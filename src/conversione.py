@@ -29,7 +29,10 @@ def main():
             if (filename.startswith("sway_") & filename.endswith(".pdf")):
                 print ("File pronto per conversione: " + filename)
                 pdf = Sway(filename, pdfFileObject)
-                pdf.stampaPagine()
+                #pdf.stampaPagine()
+                newpath = os.path.join(path, filename)
+                pdf.convertpdftotext(pdfFileObject)
+                #pdf.getPDFcontent()
             elif (filename.startswith("rom_") & filename.endswith(".pdf")):
                 print ("File pronto per conversione: " + filename)
                 pdf = Rom(filename, pdfFileObject)
