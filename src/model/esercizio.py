@@ -6,7 +6,6 @@ from pdfminer.pdfparser import PDFParser
 from pdfminer.pdfpage import PDFPage
 from io import StringIO
 
-
 class Esercizio(object):
 
     def __init__(self, filename, path):
@@ -33,7 +32,7 @@ class Esercizio(object):
         device = TextConverter(rsrcmgr, self.retstr, codec=codec, laparams=laparams)
         # Create a PDF interpreter object.
         self.interpreter = PDFPageInterpreter(rsrcmgr, device)
-
+        device.close()
 
     def stampaNome(self):
         print (self.path + self.filename)
@@ -44,5 +43,6 @@ class Esercizio(object):
 
          text = self.retstr.getvalue()
          print (text)
+         self.retstr.close()
 
 

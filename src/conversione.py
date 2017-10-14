@@ -1,7 +1,5 @@
 import os
 
-from PyPDF2 import PdfFileReader
-
 from src.model.esercizio import Esercizio
 from src.model.power import Power
 from src.model.rom import Rom
@@ -29,8 +27,7 @@ def main():
             if (filename.startswith("sway_") & filename.endswith(".pdf")):
                 print ("File pronto per conversione: " + filename)
                 pdf = Sway(filename, path)
-                #pdf.stampaPagine()
-                #pdf.getPDFcontent()
+                pdf.stampaPagine()
             elif (filename.startswith("rom_") & filename.endswith(".pdf")):
                 print ("File pronto per conversione: " + filename)
                 pdf = Rom(filename, path)
